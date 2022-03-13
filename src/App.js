@@ -23,9 +23,18 @@ function App() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:8001/persons")
+      // .get("http://localhost:8001/persons")
+      .get("https://mock.codes/500")
       .then((response) => {
         setPersons(response.data);
+      })
+      .catch((error) => {
+        console.log({ error });
+        AppToaster.show({
+          message: "Unable to load data, Something went wrong!",
+          intent: "danger",
+          timeout: 3000,
+        });
       })
       .finally(() => {
         setLoading(false);
