@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Card>
-        <table class="bp3-html-table .modifier">
+        <table className="bp3-html-table .modifier">
           <thead>
             <tr>
               <th>Name</th>
