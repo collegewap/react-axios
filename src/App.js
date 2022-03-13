@@ -4,9 +4,11 @@ import {
   EditableText,
   Toaster,
   Position,
+  InputGroup,
 } from "@blueprintjs/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const AppToaster = Toaster.create({
   position: Position.TOP,
@@ -14,6 +16,8 @@ const AppToaster = Toaster.create({
 
 function App() {
   const [persons, setPersons] = useState([]);
+  const [newName, setNewName] = useState();
+  const [newJobTitle, setNewJobTitle] = useState();
   useEffect(() => {
     axios.get("http://localhost:8001/persons").then((response) => {
       setPersons(response.data);
@@ -51,6 +55,22 @@ function App() {
         timeout: 3000,
       });
     });
+  };
+
+  const addPerson = () => {
+    if (newName?.trim() && newJobTitle?.trim()) {
+      axios
+        .post("http://localhost:8001/persons", {
+          id: uuidv4(),
+          name: newName.trim(),
+          jobTitle: newJobTitle.trim(),
+        })
+        .then((response) => {
+          setPersons([...persons, response.data]);
+          setNewName("");
+          setNewJobTitle("");
+        });
+    }
   };
 
   return (
@@ -103,6 +123,29 @@ function App() {
               );
             })}
           </tbody>
+          <tfoot>
+            <tr>
+              <td>
+                <InputGroup
+                  placeholder="Add name here..."
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                />
+              </td>
+              <td>
+                <InputGroup
+                  placeholder="Add job title here..."
+                  value={newJobTitle}
+                  onChange={(e) => setNewJobTitle(e.target.value)}
+                />
+              </td>
+              <td>
+                <Button intent="success" onClick={() => addPerson()}>
+                  Add Person
+                </Button>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </Card>
     </div>
