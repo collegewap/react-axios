@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Card } from "@blueprintjs/core";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [persons, setPersons] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:8001/persons").then((response) => {
+      setPersons(response.data);
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Card>
+        <table class="bp3-html-table .modifier">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Job Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            {persons.map((person) => {
+              return (
+                <tr key={person.id}>
+                  <td>{person.name}</td>
+                  <td>{person.jobTitle}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </Card>
     </div>
   );
 }

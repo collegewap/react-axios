@@ -1,0 +1,54 @@
+{
+  "persons": [
+    {
+      "id": "4e03b8f4-b8b2-4af5-92d5-cf224a383c8c",
+      "name": "Lauren Gleason",
+      "jobTitle": "Direct Branding Representative"
+    },
+    {
+      "id": "bd2d3b33-1d55-47d4-9ed5-4e42c13d9260",
+      "name": "Jill Watsica",
+      "jobTitle": "Legacy Factors Officer"
+    },
+    {
+      "id": "a6075a16-239e-4f75-a662-3b45e6b6f840",
+      "name": "Drew Kovacek",
+      "jobTitle": "Senior Applications Developer"
+    },
+    {
+      "id": "3ffb24ad-4f33-451c-a833-f46b7e43013a",
+      "name": "Gabriel Buckridge",
+      "jobTitle": "Regional Tactics Facilitator"
+    },
+    {
+      "id": "4e5e69bf-dd47-425f-9c2e-5d20e64cf622",
+      "name": "Glen Moen",
+      "jobTitle": "Human Operations Officer"
+    },
+    {
+      "id": "41ab6ee0-fa2c-4fa5-8f0b-6bde7e8d3312",
+      "name": "Mrs. Bonnie Wolff",
+      "jobTitle": "Dynamic Directives Consultant"
+    },
+    {
+      "id": "bbe9b920-75c3-4e7d-8ebb-eed49c3301f9",
+      "name": "Ron Marquardt",
+      "jobTitle": "Dynamic Usability Producer"
+    },
+    {
+      "id": "ecbcb95d-288d-403f-934b-f9012958646c",
+      "name": "Jan Vandervort",
+      "jobTitle": "District Infrastructure Director"
+    },
+    {
+      "id": "f5e18689-c923-428c-b3fd-10db9763d7ab",
+      "name": "Julius Lynch",
+      "jobTitle": "International Branding Planner"
+    },
+    {
+      "id": "d523f6bd-3c31-4c81-a33c-8f25028309e7",
+      "name": "Walter Dibbert",
+      "jobTitle": "Central Factors Planner"
+    }
+  ]
+}
