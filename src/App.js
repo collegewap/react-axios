@@ -39,6 +39,20 @@ function App() {
     });
   };
 
+  const deleteData = (id) => {
+    axios.delete(`http://localhost:8001/persons/${id}`).then((response) => {
+      setPersons((values) => {
+        return values.filter((item) => item.id !== id);
+      });
+
+      AppToaster.show({
+        message: "Data deleted successfully",
+        intent: "success",
+        timeout: 3000,
+      });
+    });
+  };
+
   return (
     <div className="App">
       <Card>
@@ -76,6 +90,13 @@ function App() {
                       onClick={() => updateData(person.id)}
                     >
                       Update
+                    </Button>
+                    &nbsp;
+                    <Button
+                      intent="danger"
+                      onClick={() => deleteData(person.id)}
+                    >
+                      Delete
                     </Button>
                   </td>
                 </tr>
