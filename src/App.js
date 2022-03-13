@@ -5,6 +5,7 @@ import {
   Toaster,
   Position,
   InputGroup,
+  Spinner,
 } from "@blueprintjs/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -17,11 +18,18 @@ const AppToaster = Toaster.create({
 function App() {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState();
+  const [loading, setLoading] = useState(false);
   const [newJobTitle, setNewJobTitle] = useState();
   useEffect(() => {
-    axios.get("http://localhost:8001/persons").then((response) => {
-      setPersons(response.data);
-    });
+    setLoading(true);
+    axios
+      .get("http://localhost:8001/persons")
+      .then((response) => {
+        setPersons(response.data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const onChangeHandler = (id, key, value) => {
@@ -75,79 +83,85 @@ function App() {
 
   return (
     <div className="App">
-      <Card>
-        <table className="bp3-html-table .modifier">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Job Title</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {persons.map((person) => {
-              return (
-                <tr key={person.id}>
-                  <td>
-                    <EditableText
-                      value={person.name}
-                      onChange={(value) =>
-                        onChangeHandler(person.id, "name", value)
-                      }
-                    />
-                  </td>
-                  <td>
-                    <EditableText
-                      value={person.jobTitle}
-                      onChange={(value) =>
-                        onChangeHandler(person.id, "jobTitle", value)
-                      }
-                    />
-                  </td>
-                  <td>
-                    <Button
-                      intent="primary"
-                      onClick={() => updateData(person.id)}
-                    >
-                      Update
-                    </Button>
-                    &nbsp;
-                    <Button
-                      intent="danger"
-                      onClick={() => deleteData(person.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>
-                <InputGroup
-                  placeholder="Add name here..."
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                />
-              </td>
-              <td>
-                <InputGroup
-                  placeholder="Add job title here..."
-                  value={newJobTitle}
-                  onChange={(e) => setNewJobTitle(e.target.value)}
-                />
-              </td>
-              <td>
-                <Button intent="success" onClick={() => addPerson()}>
-                  Add Person
-                </Button>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </Card>
+      {loading ? (
+        <div className="spinner">
+          <Spinner />
+        </div>
+      ) : (
+        <Card>
+          <table className="bp3-html-table .modifier">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Job Title</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {persons.map((person) => {
+                return (
+                  <tr key={person.id}>
+                    <td>
+                      <EditableText
+                        value={person.name}
+                        onChange={(value) =>
+                          onChangeHandler(person.id, "name", value)
+                        }
+                      />
+                    </td>
+                    <td>
+                      <EditableText
+                        value={person.jobTitle}
+                        onChange={(value) =>
+                          onChangeHandler(person.id, "jobTitle", value)
+                        }
+                      />
+                    </td>
+                    <td>
+                      <Button
+                        intent="primary"
+                        onClick={() => updateData(person.id)}
+                      >
+                        Update
+                      </Button>
+                      &nbsp;
+                      <Button
+                        intent="danger"
+                        onClick={() => deleteData(person.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>
+                  <InputGroup
+                    placeholder="Add name here..."
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <InputGroup
+                    placeholder="Add job title here..."
+                    value={newJobTitle}
+                    onChange={(e) => setNewJobTitle(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <Button intent="success" onClick={() => addPerson()}>
+                    Add Person
+                  </Button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </Card>
+      )}
     </div>
   );
 }
