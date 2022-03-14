@@ -21,24 +21,23 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [newJobTitle, setNewJobTitle] = useState();
   useEffect(() => {
-    setLoading(true);
-    axios
-      // .get("http://localhost:8001/persons")
-      .get("https://mock.codes/500")
-      .then((response) => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get("http://localhost:8001/persons");
         setPersons(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log({ error });
         AppToaster.show({
           message: "Unable to load data, Something went wrong!",
           intent: "danger",
           timeout: 3000,
         });
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   const onChangeHandler = (id, key, value) => {
