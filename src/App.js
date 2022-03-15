@@ -7,9 +7,9 @@ import {
   InputGroup,
   Spinner,
 } from "@blueprintjs/core";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { AxiosInstance } from "./config";
 
 const AppToaster = Toaster.create({
   position: Position.TOP,
@@ -24,7 +24,7 @@ function App() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:8001/persons");
+        const response = await AxiosInstance.get();
         setPersons(response.data);
       } catch (error) {
         console.log({ error });
@@ -50,7 +50,7 @@ function App() {
 
   const updateData = (id) => {
     const data = persons.find((item) => item.id === id);
-    axios.put(`http://localhost:8001/persons/${id}`, data).then((response) => {
+    AxiosInstance.put(`${id}`, data).then((response) => {
       AppToaster.show({
         message: "Data updated successfully",
         intent: "success",
@@ -60,7 +60,7 @@ function App() {
   };
 
   const deleteData = (id) => {
-    axios.delete(`http://localhost:8001/persons/${id}`).then((response) => {
+    AxiosInstance.delete(`${id}`).then((response) => {
       setPersons((values) => {
         return values.filter((item) => item.id !== id);
       });
@@ -75,17 +75,15 @@ function App() {
 
   const addPerson = () => {
     if (newName?.trim() && newJobTitle?.trim()) {
-      axios
-        .post("http://localhost:8001/persons", {
-          id: uuidv4(),
-          name: newName.trim(),
-          jobTitle: newJobTitle.trim(),
-        })
-        .then((response) => {
-          setPersons([...persons, response.data]);
-          setNewName("");
-          setNewJobTitle("");
-        });
+      AxiosInstance.post("", {
+        id: uuidv4(),
+        name: newName.trim(),
+        jobTitle: newJobTitle.trim(),
+      }).then((response) => {
+        setPersons([...persons, response.data]);
+        setNewName("");
+        setNewJobTitle("");
+      });
     }
   };
 

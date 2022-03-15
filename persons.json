@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "id": "4e03b8f4-b8b2-4af5-92d5-cf224a383c8c",
-      "name": "Abhishek",
-      "jobTitle": "Direct Branding Representative"
-    },
-    {
       "id": "bd2d3b33-1d55-47d4-9ed5-4e42c13d9260",
       "name": "Jill Watsica",
       "jobTitle": "Legacy Factors Officer"
@@ -49,11 +44,6 @@
       "id": "d523f6bd-3c31-4c81-a33c-8f25028309e7",
       "name": "Walter Dibbert",
       "jobTitle": "Central Factors Planner"
-    },
-    {
-      "id": "0ed73711-5c2c-4b48-a890-72ab5956a760",
-      "name": "John Doe",
-      "jobTitle": "Accountant"
     }
   ]
 }
